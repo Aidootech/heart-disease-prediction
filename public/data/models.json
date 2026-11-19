@@ -1,0 +1,1738 @@
+{
+  "project": {
+    "title": "Heart Disease Prediction System",
+    "short_title": "CardioCare Analytics",
+    "tagline": "Machine-learning decision support for cardiovascular risk screening",
+    "version": "1.0.0",
+    "author": "Academic Machine Learning Project",
+    "institution": "Department of Computer Science"
+  },
+  "run": {
+    "trained_at": "2026-11-19T01:56:57+00:00",
+    "duration_seconds": 7.1,
+    "environment": {
+      "python": "3.15.1",
+      "scikit_learn": "1.9.1",
+      "pandas": "3.1.0",
+      "numpy": "2.5.4",
+      "joblib": "1.6.0"
+    },
+    "dataset": {
+      "rows": 500,
+      "features": 10,
+      "train_rows": 400,
+      "test_rows": 100,
+      "positive": 266,
+      "negative": 234
+    },
+    "split": {
+      "test_size": 0.2,
+      "train_size": 0.8,
+      "stratified": true,
+      "random_state": 42
+    },
+    "cv": {
+      "folds": 5,
+      "shuffle": true,
+      "random_state": 42,
+      "strategy": "StratifiedKFold"
+    },
+    "selection_basis": "mean cross-validated F1-Score on the training set",
+    "decision_rule": "Heart disease is predicted when P(heart disease) >= 0.50. The same rule is used for test-set metrics and live predictions.",
+    "signal_assessment": {
+      "best_cv_roc_auc": 0.5383,
+      "interpretation": "Discrimination is close to chance on this synthetic sample. Feature associations are very weak, so the reported metrics should be read as a demonstration of the modelling workflow, not as clinical evidence."
+    },
+    "verification": {
+      "tolerance": 1e-08,
+      "rows": 500,
+      "models": {
+        "logistic_regression": {
+          "max_abs_probability_diff": 4.988787161153141e-13,
+          "label_mismatches": 0,
+          "passed": true
+        },
+        "decision_tree": {
+          "max_abs_probability_diff": 0.0,
+          "label_mismatches": 0,
+          "passed": true
+        },
+        "random_forest": {
+          "max_abs_probability_diff": 5.033196082138147e-13,
+          "label_mismatches": 0,
+          "passed": true
+        },
+        "svm": {
+          "max_abs_probability_diff": 4.994893387788579e-13,
+          "label_mismatches": 0,
+          "passed": true
+        }
+      },
+      "passed": true,
+      "checked_at": "2026-11-19T01:56:57+00:00"
+    }
+  },
+  "model_order": [
+    "logistic_regression",
+    "decision_tree",
+    "random_forest",
+    "svm"
+  ],
+  "models": {
+    "logistic_regression": {
+      "key": "logistic_regression",
+      "name": "Logistic Regression",
+      "acronym": "LR",
+      "family": "Linear model",
+      "color": "#0E7C86",
+      "description": "A linear classifier that estimates the log-odds of heart disease and converts them into calibrated probabilities. It is highly interpretable and provides a strong baseline for clinical risk screening.",
+      "strengths": "Interpretable coefficients · fast · well-calibrated probabilities",
+      "cv": {
+        "accuracy": {
+          "mean": 0.535,
+          "std": 0.031,
+          "folds": [
+            0.5,
+            0.5375,
+            0.5,
+            0.575,
+            0.5625
+          ]
+        },
+        "precision": {
+          "mean": 0.5518,
+          "std": 0.0272,
+          "folds": [
+            0.5156,
+            0.549,
+            0.5294,
+            0.5849,
+            0.58
+          ]
+        },
+        "recall": {
+          "mean": 0.6951,
+          "std": 0.0541,
+          "folds": [
+            0.7857,
+            0.6667,
+            0.6279,
+            0.7209,
+            0.6744
+          ]
+        },
+        "f1": {
+          "mean": 0.6137,
+          "std": 0.024,
+          "folds": [
+            0.6226,
+            0.6022,
+            0.5745,
+            0.6458,
+            0.6237
+          ]
+        },
+        "roc_auc": {
+          "mean": 0.5311,
+          "std": 0.0426,
+          "folds": [
+            0.5326,
+            0.5407,
+            0.4538,
+            0.5845,
+            0.5437
+          ]
+        }
+      },
+      "cv_roc_auc": 0.5311,
+      "metrics": {
+        "accuracy": 0.56,
+        "precision": 0.5616,
+        "recall": 0.7736,
+        "f1": 0.6508,
+        "roc_auc": 0.5046
+      },
+      "confusion_matrix": {
+        "tn": 15,
+        "fp": 32,
+        "fn": 12,
+        "tp": 41,
+        "matrix": [
+          [
+            15,
+            32
+          ],
+          [
+            12,
+            41
+          ]
+        ],
+        "labels": [
+          "No disease",
+          "Heart disease"
+        ]
+      },
+      "classification_report": [
+        {
+          "label": "No heart disease",
+          "precision": 0.5556,
+          "recall": 0.3191,
+          "f1": 0.4054,
+          "support": 47
+        },
+        {
+          "label": "Heart disease",
+          "precision": 0.5616,
+          "recall": 0.7736,
+          "f1": 0.6508,
+          "support": 53
+        },
+        {
+          "label": "Macro average",
+          "precision": 0.5586,
+          "recall": 0.5464,
+          "f1": 0.5281,
+          "support": 100
+        },
+        {
+          "label": "Weighted average",
+          "precision": 0.5588,
+          "recall": 0.56,
+          "f1": 0.5355,
+          "support": 100
+        }
+      ],
+      "roc_curve": [
+        {
+          "fpr": 0.0,
+          "tpr": 0.0
+        },
+        {
+          "fpr": 0.0213,
+          "tpr": 0.0
+        },
+        {
+          "fpr": 0.0213,
+          "tpr": 0.0189
+        },
+        {
+          "fpr": 0.0426,
+          "tpr": 0.0189
+        },
+        {
+          "fpr": 0.0426,
+          "tpr": 0.0377
+        },
+        {
+          "fpr": 0.0851,
+          "tpr": 0.0377
+        },
+        {
+          "fpr": 0.0851,
+          "tpr": 0.0755
+        },
+        {
+          "fpr": 0.1277,
+          "tpr": 0.0755
+        },
+        {
+          "fpr": 0.1277,
+          "tpr": 0.1321
+        },
+        {
+          "fpr": 0.1702,
+          "tpr": 0.1321
+        },
+        {
+          "fpr": 0.1702,
+          "tpr": 0.1509
+        },
+        {
+          "fpr": 0.2128,
+          "tpr": 0.1509
+        },
+        {
+          "fpr": 0.2128,
+          "tpr": 0.1698
+        },
+        {
+          "fpr": 0.2979,
+          "tpr": 0.1698
+        },
+        {
+          "fpr": 0.2979,
+          "tpr": 0.2453
+        },
+        {
+          "fpr": 0.3191,
+          "tpr": 0.2453
+        },
+        {
+          "fpr": 0.3191,
+          "tpr": 0.3962
+        },
+        {
+          "fpr": 0.3617,
+          "tpr": 0.3962
+        },
+        {
+          "fpr": 0.3617,
+          "tpr": 0.4151
+        },
+        {
+          "fpr": 0.4468,
+          "tpr": 0.4151
+        },
+        {
+          "fpr": 0.4468,
+          "tpr": 0.434
+        },
+        {
+          "fpr": 0.4681,
+          "tpr": 0.434
+        },
+        {
+          "fpr": 0.4681,
+          "tpr": 0.4906
+        },
+        {
+          "fpr": 0.4894,
+          "tpr": 0.4906
+        },
+        {
+          "fpr": 0.4894,
+          "tpr": 0.5094
+        },
+        {
+          "fpr": 0.5319,
+          "tpr": 0.5094
+        },
+        {
+          "fpr": 0.5319,
+          "tpr": 0.5283
+        },
+        {
+          "fpr": 0.5532,
+          "tpr": 0.5283
+        },
+        {
+          "fpr": 0.5532,
+          "tpr": 0.5472
+        },
+        {
+          "fpr": 0.5957,
+          "tpr": 0.5472
+        },
+        {
+          "fpr": 0.5957,
+          "tpr": 0.566
+        },
+        {
+          "fpr": 0.617,
+          "tpr": 0.566
+        },
+        {
+          "fpr": 0.617,
+          "tpr": 0.6415
+        },
+        {
+          "fpr": 0.6383,
+          "tpr": 0.6415
+        },
+        {
+          "fpr": 0.6383,
+          "tpr": 0.7358
+        },
+        {
+          "fpr": 0.6596,
+          "tpr": 0.7358
+        },
+        {
+          "fpr": 0.6596,
+          "tpr": 0.7547
+        },
+        {
+          "fpr": 0.6809,
+          "tpr": 0.7547
+        },
+        {
+          "fpr": 0.6809,
+          "tpr": 0.7925
+        },
+        {
+          "fpr": 0.7021,
+          "tpr": 0.7925
+        },
+        {
+          "fpr": 0.7021,
+          "tpr": 0.8113
+        },
+        {
+          "fpr": 0.7234,
+          "tpr": 0.8113
+        },
+        {
+          "fpr": 0.7234,
+          "tpr": 0.8302
+        },
+        {
+          "fpr": 0.766,
+          "tpr": 0.8302
+        },
+        {
+          "fpr": 0.766,
+          "tpr": 0.8491
+        },
+        {
+          "fpr": 0.8723,
+          "tpr": 0.8491
+        },
+        {
+          "fpr": 0.8723,
+          "tpr": 0.9434
+        },
+        {
+          "fpr": 0.9574,
+          "tpr": 0.9434
+        },
+        {
+          "fpr": 0.9574,
+          "tpr": 0.9811
+        },
+        {
+          "fpr": 0.9787,
+          "tpr": 0.9811
+        },
+        {
+          "fpr": 0.9787,
+          "tpr": 1.0
+        },
+        {
+          "fpr": 1.0,
+          "tpr": 1.0
+        }
+      ],
+      "test_samples": 100,
+      "test_positives": 53,
+      "test_negatives": 47,
+      "threshold": 0.5,
+      "hyperparameters": {
+        "C": 1.0,
+        "solver": "lbfgs",
+        "max_iter": 2000
+      },
+      "feature_importance": [
+        {
+          "feature": "Blood Pressure",
+          "raw": "blood_pressure",
+          "value": -0.2009,
+          "magnitude": 0.2009,
+          "direction": "decreases risk"
+        },
+        {
+          "feature": "Smoking Status = Yes",
+          "raw": "smoker_Yes",
+          "value": 0.1704,
+          "magnitude": 0.1704,
+          "direction": "increases risk"
+        },
+        {
+          "feature": "Smoking Status = No",
+          "raw": "smoker_No",
+          "value": -0.1286,
+          "magnitude": 0.1286,
+          "direction": "decreases risk"
+        },
+        {
+          "feature": "Age",
+          "raw": "age",
+          "value": -0.1231,
+          "magnitude": 0.1231,
+          "direction": "decreases risk"
+        },
+        {
+          "feature": "Sex = Male",
+          "raw": "sex_Male",
+          "value": 0.0998,
+          "magnitude": 0.0998,
+          "direction": "increases risk"
+        },
+        {
+          "feature": "Cholesterol",
+          "raw": "cholesterol",
+          "value": -0.0646,
+          "magnitude": 0.0646,
+          "direction": "decreases risk"
+        },
+        {
+          "feature": "Diabetes = Yes",
+          "raw": "diabetes_Yes",
+          "value": 0.0601,
+          "magnitude": 0.0601,
+          "direction": "increases risk"
+        },
+        {
+          "feature": "Sex = Female",
+          "raw": "sex_Female",
+          "value": -0.0579,
+          "magnitude": 0.0579,
+          "direction": "decreases risk"
+        },
+        {
+          "feature": "Family History = No",
+          "raw": "family_history_No",
+          "value": 0.0416,
+          "magnitude": 0.0416,
+          "direction": "increases risk"
+        },
+        {
+          "feature": "Physical Activity",
+          "raw": "physical_activity",
+          "value": 0.0409,
+          "magnitude": 0.0409,
+          "direction": "increases risk"
+        },
+        {
+          "feature": "BMI",
+          "raw": "bmi",
+          "value": 0.0288,
+          "magnitude": 0.0288,
+          "direction": "increases risk"
+        },
+        {
+          "feature": "Diabetes = No",
+          "raw": "diabetes_No",
+          "value": -0.0182,
+          "magnitude": 0.0182,
+          "direction": "decreases risk"
+        },
+        {
+          "feature": "Stress Level",
+          "raw": "stress_level",
+          "value": 0.0007,
+          "magnitude": 0.0007,
+          "direction": "increases risk"
+        },
+        {
+          "feature": "Family History = Yes",
+          "raw": "family_history_Yes",
+          "value": 0.0003,
+          "magnitude": 0.0003,
+          "direction": "increases risk"
+        }
+      ],
+      "probability_supported": true
+    },
+    "decision_tree": {
+      "key": "decision_tree",
+      "name": "Decision Tree",
+      "acronym": "DT",
+      "family": "Tree-based model",
+      "color": "#E4572E",
+      "description": "Recursively partitions patients into risk groups using feature thresholds. The resulting rules are easy to read and explain to non-technical audiences, although a single tree can overfit.",
+      "strengths": "Transparent decision rules · no scaling required",
+      "cv": {
+        "accuracy": {
+          "mean": 0.4875,
+          "std": 0.0354,
+          "folds": [
+            0.5,
+            0.475,
+            0.425,
+            0.525,
+            0.5125
+          ]
+        },
+        "precision": {
+          "mean": 0.5158,
+          "std": 0.0331,
+          "folds": [
+            0.5185,
+            0.5,
+            0.4615,
+            0.549,
+            0.55
+          ]
+        },
+        "recall": {
+          "mean": 0.5353,
+          "std": 0.1061,
+          "folds": [
+            0.6667,
+            0.4286,
+            0.4186,
+            0.6512,
+            0.5116
+          ]
+        },
+        "f1": {
+          "mean": 0.522,
+          "std": 0.0629,
+          "folds": [
+            0.5833,
+            0.4615,
+            0.439,
+            0.5957,
+            0.5301
+          ]
+        },
+        "roc_auc": {
+          "mean": 0.4972,
+          "std": 0.0425,
+          "folds": [
+            0.5091,
+            0.4398,
+            0.4554,
+            0.5456,
+            0.5361
+          ]
+        }
+      },
+      "cv_roc_auc": 0.4972,
+      "metrics": {
+        "accuracy": 0.46,
+        "precision": 0.4737,
+        "recall": 0.1698,
+        "f1": 0.25,
+        "roc_auc": 0.4837
+      },
+      "confusion_matrix": {
+        "tn": 37,
+        "fp": 10,
+        "fn": 44,
+        "tp": 9,
+        "matrix": [
+          [
+            37,
+            10
+          ],
+          [
+            44,
+            9
+          ]
+        ],
+        "labels": [
+          "No disease",
+          "Heart disease"
+        ]
+      },
+      "classification_report": [
+        {
+          "label": "No heart disease",
+          "precision": 0.4568,
+          "recall": 0.7872,
+          "f1": 0.5781,
+          "support": 47
+        },
+        {
+          "label": "Heart disease",
+          "precision": 0.4737,
+          "recall": 0.1698,
+          "f1": 0.25,
+          "support": 53
+        },
+        {
+          "label": "Macro average",
+          "precision": 0.4652,
+          "recall": 0.4785,
+          "f1": 0.4141,
+          "support": 100
+        },
+        {
+          "label": "Weighted average",
+          "precision": 0.4657,
+          "recall": 0.46,
+          "f1": 0.4042,
+          "support": 100
+        }
+      ],
+      "roc_curve": [
+        {
+          "fpr": 0.0,
+          "tpr": 0.0
+        },
+        {
+          "fpr": 0.0213,
+          "tpr": 0.0
+        },
+        {
+          "fpr": 0.0851,
+          "tpr": 0.0943
+        },
+        {
+          "fpr": 0.1064,
+          "tpr": 0.0943
+        },
+        {
+          "fpr": 0.1702,
+          "tpr": 0.1132
+        },
+        {
+          "fpr": 0.1915,
+          "tpr": 0.1698
+        },
+        {
+          "fpr": 0.2128,
+          "tpr": 0.1698
+        },
+        {
+          "fpr": 0.8085,
+          "tpr": 0.8113
+        },
+        {
+          "fpr": 0.8511,
+          "tpr": 0.8868
+        },
+        {
+          "fpr": 0.8936,
+          "tpr": 0.9245
+        },
+        {
+          "fpr": 0.9787,
+          "tpr": 0.9245
+        },
+        {
+          "fpr": 1.0,
+          "tpr": 0.9434
+        },
+        {
+          "fpr": 1.0,
+          "tpr": 1.0
+        }
+      ],
+      "test_samples": 100,
+      "test_positives": 53,
+      "test_negatives": 47,
+      "threshold": 0.5,
+      "hyperparameters": {
+        "max_depth": 5,
+        "min_samples_leaf": 8,
+        "max_features": null
+      },
+      "feature_importance": [
+        {
+          "feature": "Blood Pressure",
+          "raw": "blood_pressure",
+          "value": 0.3914,
+          "magnitude": 0.3914,
+          "direction": ""
+        },
+        {
+          "feature": "BMI",
+          "raw": "bmi",
+          "value": 0.2971,
+          "magnitude": 0.2971,
+          "direction": ""
+        },
+        {
+          "feature": "Physical Activity",
+          "raw": "physical_activity",
+          "value": 0.1408,
+          "magnitude": 0.1408,
+          "direction": ""
+        },
+        {
+          "feature": "Smoking Status = Yes",
+          "raw": "smoker_Yes",
+          "value": 0.0611,
+          "magnitude": 0.0611,
+          "direction": ""
+        },
+        {
+          "feature": "Age",
+          "raw": "age",
+          "value": 0.0473,
+          "magnitude": 0.0473,
+          "direction": ""
+        },
+        {
+          "feature": "Cholesterol",
+          "raw": "cholesterol",
+          "value": 0.0449,
+          "magnitude": 0.0449,
+          "direction": ""
+        },
+        {
+          "feature": "Diabetes = No",
+          "raw": "diabetes_No",
+          "value": 0.0173,
+          "magnitude": 0.0173,
+          "direction": ""
+        },
+        {
+          "feature": "Stress Level",
+          "raw": "stress_level",
+          "value": 0.0,
+          "magnitude": 0.0,
+          "direction": ""
+        },
+        {
+          "feature": "Sex = Female",
+          "raw": "sex_Female",
+          "value": 0.0,
+          "magnitude": 0.0,
+          "direction": ""
+        },
+        {
+          "feature": "Sex = Male",
+          "raw": "sex_Male",
+          "value": 0.0,
+          "magnitude": 0.0,
+          "direction": ""
+        },
+        {
+          "feature": "Smoking Status = No",
+          "raw": "smoker_No",
+          "value": 0.0,
+          "magnitude": 0.0,
+          "direction": ""
+        },
+        {
+          "feature": "Diabetes = Yes",
+          "raw": "diabetes_Yes",
+          "value": 0.0,
+          "magnitude": 0.0,
+          "direction": ""
+        },
+        {
+          "feature": "Family History = No",
+          "raw": "family_history_No",
+          "value": 0.0,
+          "magnitude": 0.0,
+          "direction": ""
+        },
+        {
+          "feature": "Family History = Yes",
+          "raw": "family_history_Yes",
+          "value": 0.0,
+          "magnitude": 0.0,
+          "direction": ""
+        }
+      ],
+      "probability_supported": true
+    },
+    "random_forest": {
+      "key": "random_forest",
+      "name": "Random Forest",
+      "acronym": "RF",
+      "family": "Ensemble model",
+      "color": "#2F6B8F",
+      "description": "An ensemble of decorrelated decision trees whose votes are averaged. It captures non-linear interactions, is robust to outliers and usually delivers the strongest tabular performance.",
+      "strengths": "High accuracy · robust · feature importance ranking",
+      "cv": {
+        "accuracy": {
+          "mean": 0.4925,
+          "std": 0.0332,
+          "folds": [
+            0.475,
+            0.55,
+            0.45,
+            0.4875,
+            0.5
+          ]
+        },
+        "precision": {
+          "mean": 0.5213,
+          "std": 0.0246,
+          "folds": [
+            0.5,
+            0.5556,
+            0.4894,
+            0.5208,
+            0.5405
+          ]
+        },
+        "recall": {
+          "mean": 0.602,
+          "std": 0.0989,
+          "folds": [
+            0.7143,
+            0.7143,
+            0.5349,
+            0.5814,
+            0.4651
+          ]
+        },
+        "f1": {
+          "mean": 0.5548,
+          "std": 0.0469,
+          "folds": [
+            0.5882,
+            0.625,
+            0.5111,
+            0.5495,
+            0.5
+          ]
+        },
+        "roc_auc": {
+          "mean": 0.5077,
+          "std": 0.0515,
+          "folds": [
+            0.4492,
+            0.5683,
+            0.4683,
+            0.4821,
+            0.5707
+          ]
+        }
+      },
+      "cv_roc_auc": 0.5077,
+      "metrics": {
+        "accuracy": 0.57,
+        "precision": 0.5806,
+        "recall": 0.6792,
+        "f1": 0.6261,
+        "roc_auc": 0.5335
+      },
+      "confusion_matrix": {
+        "tn": 21,
+        "fp": 26,
+        "fn": 17,
+        "tp": 36,
+        "matrix": [
+          [
+            21,
+            26
+          ],
+          [
+            17,
+            36
+          ]
+        ],
+        "labels": [
+          "No disease",
+          "Heart disease"
+        ]
+      },
+      "classification_report": [
+        {
+          "label": "No heart disease",
+          "precision": 0.5526,
+          "recall": 0.4468,
+          "f1": 0.4941,
+          "support": 47
+        },
+        {
+          "label": "Heart disease",
+          "precision": 0.5806,
+          "recall": 0.6792,
+          "f1": 0.6261,
+          "support": 53
+        },
+        {
+          "label": "Macro average",
+          "precision": 0.5666,
+          "recall": 0.563,
+          "f1": 0.5601,
+          "support": 100
+        },
+        {
+          "label": "Weighted average",
+          "precision": 0.5675,
+          "recall": 0.57,
+          "f1": 0.5641,
+          "support": 100
+        }
+      ],
+      "roc_curve": [
+        {
+          "fpr": 0.0,
+          "tpr": 0.0
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.0189
+        },
+        {
+          "fpr": 0.0213,
+          "tpr": 0.0189
+        },
+        {
+          "fpr": 0.0213,
+          "tpr": 0.0566
+        },
+        {
+          "fpr": 0.0426,
+          "tpr": 0.0566
+        },
+        {
+          "fpr": 0.0426,
+          "tpr": 0.0755
+        },
+        {
+          "fpr": 0.0638,
+          "tpr": 0.0755
+        },
+        {
+          "fpr": 0.0638,
+          "tpr": 0.0943
+        },
+        {
+          "fpr": 0.0851,
+          "tpr": 0.0943
+        },
+        {
+          "fpr": 0.0851,
+          "tpr": 0.1321
+        },
+        {
+          "fpr": 0.1702,
+          "tpr": 0.1321
+        },
+        {
+          "fpr": 0.1702,
+          "tpr": 0.1698
+        },
+        {
+          "fpr": 0.2553,
+          "tpr": 0.1698
+        },
+        {
+          "fpr": 0.2553,
+          "tpr": 0.1887
+        },
+        {
+          "fpr": 0.2979,
+          "tpr": 0.1887
+        },
+        {
+          "fpr": 0.2979,
+          "tpr": 0.2264
+        },
+        {
+          "fpr": 0.3617,
+          "tpr": 0.2264
+        },
+        {
+          "fpr": 0.3617,
+          "tpr": 0.3396
+        },
+        {
+          "fpr": 0.4043,
+          "tpr": 0.3396
+        },
+        {
+          "fpr": 0.4043,
+          "tpr": 0.4906
+        },
+        {
+          "fpr": 0.4468,
+          "tpr": 0.4906
+        },
+        {
+          "fpr": 0.4468,
+          "tpr": 0.566
+        },
+        {
+          "fpr": 0.4894,
+          "tpr": 0.566
+        },
+        {
+          "fpr": 0.4894,
+          "tpr": 0.6038
+        },
+        {
+          "fpr": 0.5319,
+          "tpr": 0.6038
+        },
+        {
+          "fpr": 0.5319,
+          "tpr": 0.6792
+        },
+        {
+          "fpr": 0.5532,
+          "tpr": 0.6792
+        },
+        {
+          "fpr": 0.5532,
+          "tpr": 0.6981
+        },
+        {
+          "fpr": 0.5745,
+          "tpr": 0.6981
+        },
+        {
+          "fpr": 0.5745,
+          "tpr": 0.717
+        },
+        {
+          "fpr": 0.6596,
+          "tpr": 0.717
+        },
+        {
+          "fpr": 0.6596,
+          "tpr": 0.7547
+        },
+        {
+          "fpr": 0.7021,
+          "tpr": 0.7547
+        },
+        {
+          "fpr": 0.7021,
+          "tpr": 0.8113
+        },
+        {
+          "fpr": 0.7447,
+          "tpr": 0.8113
+        },
+        {
+          "fpr": 0.7447,
+          "tpr": 0.8302
+        },
+        {
+          "fpr": 0.7872,
+          "tpr": 0.8302
+        },
+        {
+          "fpr": 0.7872,
+          "tpr": 0.9434
+        },
+        {
+          "fpr": 0.9362,
+          "tpr": 0.9434
+        },
+        {
+          "fpr": 0.9362,
+          "tpr": 0.9623
+        },
+        {
+          "fpr": 0.9787,
+          "tpr": 0.9623
+        },
+        {
+          "fpr": 0.9787,
+          "tpr": 1.0
+        },
+        {
+          "fpr": 1.0,
+          "tpr": 1.0
+        }
+      ],
+      "test_samples": 100,
+      "test_positives": 53,
+      "test_negatives": 47,
+      "threshold": 0.5,
+      "hyperparameters": {
+        "max_depth": null,
+        "min_samples_leaf": 2,
+        "n_estimators": 300,
+        "max_features": "sqrt"
+      },
+      "feature_importance": [
+        {
+          "feature": "Blood Pressure",
+          "raw": "blood_pressure",
+          "value": 0.1848,
+          "magnitude": 0.1848,
+          "direction": ""
+        },
+        {
+          "feature": "BMI",
+          "raw": "bmi",
+          "value": 0.1671,
+          "magnitude": 0.1671,
+          "direction": ""
+        },
+        {
+          "feature": "Cholesterol",
+          "raw": "cholesterol",
+          "value": 0.1599,
+          "magnitude": 0.1599,
+          "direction": ""
+        },
+        {
+          "feature": "Age",
+          "raw": "age",
+          "value": 0.1416,
+          "magnitude": 0.1416,
+          "direction": ""
+        },
+        {
+          "feature": "Stress Level",
+          "raw": "stress_level",
+          "value": 0.1039,
+          "magnitude": 0.1039,
+          "direction": ""
+        },
+        {
+          "feature": "Physical Activity",
+          "raw": "physical_activity",
+          "value": 0.0767,
+          "magnitude": 0.0767,
+          "direction": ""
+        },
+        {
+          "feature": "Sex = Male",
+          "raw": "sex_Male",
+          "value": 0.0222,
+          "magnitude": 0.0222,
+          "direction": ""
+        },
+        {
+          "feature": "Family History = Yes",
+          "raw": "family_history_Yes",
+          "value": 0.022,
+          "magnitude": 0.022,
+          "direction": ""
+        },
+        {
+          "feature": "Family History = No",
+          "raw": "family_history_No",
+          "value": 0.0214,
+          "magnitude": 0.0214,
+          "direction": ""
+        },
+        {
+          "feature": "Smoking Status = No",
+          "raw": "smoker_No",
+          "value": 0.0206,
+          "magnitude": 0.0206,
+          "direction": ""
+        },
+        {
+          "feature": "Smoking Status = Yes",
+          "raw": "smoker_Yes",
+          "value": 0.0202,
+          "magnitude": 0.0202,
+          "direction": ""
+        },
+        {
+          "feature": "Sex = Female",
+          "raw": "sex_Female",
+          "value": 0.02,
+          "magnitude": 0.02,
+          "direction": ""
+        },
+        {
+          "feature": "Diabetes = Yes",
+          "raw": "diabetes_Yes",
+          "value": 0.0199,
+          "magnitude": 0.0199,
+          "direction": ""
+        },
+        {
+          "feature": "Diabetes = No",
+          "raw": "diabetes_No",
+          "value": 0.0197,
+          "magnitude": 0.0197,
+          "direction": ""
+        }
+      ],
+      "probability_supported": true
+    },
+    "svm": {
+      "key": "svm",
+      "name": "Support Vector Machine",
+      "acronym": "SVM",
+      "family": "Kernel model",
+      "color": "#8A5CF6",
+      "description": "Finds a maximum-margin boundary in a radial-basis-function feature space. It performs well on compact, scaled clinical datasets and produces probability estimates via Platt scaling.",
+      "strengths": "Effective in high dimensions · strong margin separation",
+      "cv": {
+        "accuracy": {
+          "mean": 0.5125,
+          "std": 0.053,
+          "folds": [
+            0.4375,
+            0.55,
+            0.4625,
+            0.5375,
+            0.575
+          ]
+        },
+        "precision": {
+          "mean": 0.5381,
+          "std": 0.0459,
+          "folds": [
+            0.4746,
+            0.5536,
+            0.5,
+            0.5577,
+            0.6047
+          ]
+        },
+        "recall": {
+          "mean": 0.6391,
+          "std": 0.0765,
+          "folds": [
+            0.6667,
+            0.7381,
+            0.5116,
+            0.6744,
+            0.6047
+          ]
+        },
+        "f1": {
+          "mean": 0.5816,
+          "std": 0.0457,
+          "folds": [
+            0.5545,
+            0.6327,
+            0.5057,
+            0.6105,
+            0.6047
+          ]
+        },
+        "roc_auc": {
+          "mean": 0.5383,
+          "std": 0.0518,
+          "folds": [
+            0.5132,
+            0.5852,
+            0.4519,
+            0.5481,
+            0.5933
+          ]
+        }
+      },
+      "cv_roc_auc": 0.5383,
+      "metrics": {
+        "accuracy": 0.53,
+        "precision": 0.53,
+        "recall": 1.0,
+        "f1": 0.6928,
+        "roc_auc": 0.4119
+      },
+      "confusion_matrix": {
+        "tn": 0,
+        "fp": 47,
+        "fn": 0,
+        "tp": 53,
+        "matrix": [
+          [
+            0,
+            47
+          ],
+          [
+            0,
+            53
+          ]
+        ],
+        "labels": [
+          "No disease",
+          "Heart disease"
+        ]
+      },
+      "classification_report": [
+        {
+          "label": "No heart disease",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 47
+        },
+        {
+          "label": "Heart disease",
+          "precision": 0.53,
+          "recall": 1.0,
+          "f1": 0.6928,
+          "support": 53
+        },
+        {
+          "label": "Macro average",
+          "precision": 0.265,
+          "recall": 0.5,
+          "f1": 0.3464,
+          "support": 100
+        },
+        {
+          "label": "Weighted average",
+          "precision": 0.2809,
+          "recall": 0.53,
+          "f1": 0.3672,
+          "support": 100
+        }
+      ],
+      "roc_curve": [
+        {
+          "fpr": 0.0,
+          "tpr": 0.0
+        },
+        {
+          "fpr": 0.0213,
+          "tpr": 0.0
+        },
+        {
+          "fpr": 0.0213,
+          "tpr": 0.0755
+        },
+        {
+          "fpr": 0.0638,
+          "tpr": 0.0755
+        },
+        {
+          "fpr": 0.0638,
+          "tpr": 0.1321
+        },
+        {
+          "fpr": 0.0851,
+          "tpr": 0.1321
+        },
+        {
+          "fpr": 0.0851,
+          "tpr": 0.1509
+        },
+        {
+          "fpr": 0.1064,
+          "tpr": 0.1509
+        },
+        {
+          "fpr": 0.1064,
+          "tpr": 0.2075
+        },
+        {
+          "fpr": 0.1277,
+          "tpr": 0.2075
+        },
+        {
+          "fpr": 0.1277,
+          "tpr": 0.2264
+        },
+        {
+          "fpr": 0.1702,
+          "tpr": 0.2264
+        },
+        {
+          "fpr": 0.1702,
+          "tpr": 0.2453
+        },
+        {
+          "fpr": 0.2128,
+          "tpr": 0.2453
+        },
+        {
+          "fpr": 0.2128,
+          "tpr": 0.2642
+        },
+        {
+          "fpr": 0.2553,
+          "tpr": 0.2642
+        },
+        {
+          "fpr": 0.2553,
+          "tpr": 0.283
+        },
+        {
+          "fpr": 0.4043,
+          "tpr": 0.283
+        },
+        {
+          "fpr": 0.4043,
+          "tpr": 0.3208
+        },
+        {
+          "fpr": 0.4468,
+          "tpr": 0.3208
+        },
+        {
+          "fpr": 0.4468,
+          "tpr": 0.3396
+        },
+        {
+          "fpr": 0.5106,
+          "tpr": 0.3396
+        },
+        {
+          "fpr": 0.5106,
+          "tpr": 0.3585
+        },
+        {
+          "fpr": 0.5532,
+          "tpr": 0.3585
+        },
+        {
+          "fpr": 0.5532,
+          "tpr": 0.434
+        },
+        {
+          "fpr": 0.6596,
+          "tpr": 0.434
+        },
+        {
+          "fpr": 0.6596,
+          "tpr": 0.5094
+        },
+        {
+          "fpr": 0.7447,
+          "tpr": 0.5094
+        },
+        {
+          "fpr": 0.7447,
+          "tpr": 0.5283
+        },
+        {
+          "fpr": 0.766,
+          "tpr": 0.5283
+        },
+        {
+          "fpr": 0.766,
+          "tpr": 0.566
+        },
+        {
+          "fpr": 0.7872,
+          "tpr": 0.566
+        },
+        {
+          "fpr": 0.7872,
+          "tpr": 0.5849
+        },
+        {
+          "fpr": 0.8085,
+          "tpr": 0.5849
+        },
+        {
+          "fpr": 0.8085,
+          "tpr": 0.6415
+        },
+        {
+          "fpr": 0.8511,
+          "tpr": 0.6415
+        },
+        {
+          "fpr": 0.8511,
+          "tpr": 0.7358
+        },
+        {
+          "fpr": 0.8936,
+          "tpr": 0.7358
+        },
+        {
+          "fpr": 0.8936,
+          "tpr": 0.7736
+        },
+        {
+          "fpr": 0.9149,
+          "tpr": 0.7736
+        },
+        {
+          "fpr": 0.9149,
+          "tpr": 0.7925
+        },
+        {
+          "fpr": 0.9574,
+          "tpr": 0.7925
+        },
+        {
+          "fpr": 0.9574,
+          "tpr": 0.8868
+        },
+        {
+          "fpr": 0.9787,
+          "tpr": 0.8868
+        },
+        {
+          "fpr": 0.9787,
+          "tpr": 1.0
+        },
+        {
+          "fpr": 1.0,
+          "tpr": 1.0
+        }
+      ],
+      "test_samples": 100,
+      "test_positives": 53,
+      "test_negatives": 47,
+      "threshold": 0.5,
+      "hyperparameters": {
+        "C": 1.0,
+        "kernel": "rbf",
+        "gamma": "scale",
+        "probability": true,
+        "max_iter": -1
+      },
+      "feature_importance": [],
+      "probability_supported": true
+    }
+  },
+  "best_model": {
+    "key": "logistic_regression",
+    "name": "Logistic Regression",
+    "criterion": "f1",
+    "score": 0.6137
+  },
+  "best_by": {
+    "accuracy": "logistic_regression",
+    "precision": "logistic_regression",
+    "recall": "logistic_regression",
+    "f1": "logistic_regression",
+    "roc_auc": "svm"
+  },
+  "selection_basis": "mean cross-validated F1-Score on the training set",
+  "metric_labels": {
+    "accuracy": "Accuracy",
+    "precision": "Precision",
+    "recall": "Recall",
+    "f1": "F1-Score",
+    "roc_auc": "ROC-AUC"
+  },
+  "metric_order": [
+    "accuracy",
+    "precision",
+    "recall",
+    "f1",
+    "roc_auc"
+  ],
+  "decision_rule": "Heart disease is predicted when P(heart disease) >= 0.50. The same rule is used for test-set metrics and live predictions.",
+  "signal_assessment": {
+    "best_cv_roc_auc": 0.5383,
+    "interpretation": "Discrimination is close to chance on this synthetic sample. Feature associations are very weak, so the reported metrics should be read as a demonstration of the modelling workflow, not as clinical evidence."
+  },
+  "feature_schema": {
+    "numeric": [
+      {
+        "name": "age",
+        "label": "Age",
+        "unit": "years",
+        "help": "Patient age in completed years.",
+        "min": 18,
+        "max": 100,
+        "observed_min": 30.0,
+        "observed_max": 79.0,
+        "mean": 54.86,
+        "median": 55.0,
+        "step": 1
+      },
+      {
+        "name": "blood_pressure",
+        "label": "Blood Pressure",
+        "unit": "mmHg",
+        "help": "Systolic blood pressure in millimetres of mercury (mmHg).",
+        "min": 70,
+        "max": 250,
+        "observed_min": 90.0,
+        "observed_max": 179.0,
+        "mean": 132.87,
+        "median": 132.0,
+        "step": 1
+      },
+      {
+        "name": "cholesterol",
+        "label": "Cholesterol",
+        "unit": "mg/dL",
+        "help": "Total serum cholesterol in milligrams per decilitre (mg/dL).",
+        "min": 100,
+        "max": 600,
+        "observed_min": 150.0,
+        "observed_max": 299.0,
+        "mean": 221.5,
+        "median": 221.0,
+        "step": 1
+      },
+      {
+        "name": "bmi",
+        "label": "BMI",
+        "unit": "kg/m²",
+        "help": "Body mass index in kg/m².",
+        "min": 10.0,
+        "max": 60.0,
+        "observed_min": 18.1,
+        "observed_max": 40.0,
+        "mean": 29.02,
+        "median": 29.2,
+        "step": 0.1
+      },
+      {
+        "name": "physical_activity",
+        "label": "Physical Activity",
+        "unit": "sessions / week",
+        "help": "Number of moderate-to-vigorous activity sessions per week (0–4 in the dataset).",
+        "min": 0,
+        "max": 7,
+        "observed_min": 0.0,
+        "observed_max": 4.0,
+        "mean": 2.05,
+        "median": 2.0,
+        "step": 1
+      },
+      {
+        "name": "stress_level",
+        "label": "Stress Level",
+        "unit": "score (1–10)",
+        "help": "Self-reported stress score from 1 (low) to 10 (high).",
+        "min": 1,
+        "max": 10,
+        "observed_min": 1.0,
+        "observed_max": 9.0,
+        "mean": 4.88,
+        "median": 5.0,
+        "step": 1
+      }
+    ],
+    "categorical": [
+      {
+        "name": "sex",
+        "label": "Sex",
+        "help": "Biological sex recorded in the hospital dataset.",
+        "options": [
+          "Female",
+          "Male"
+        ]
+      },
+      {
+        "name": "smoker",
+        "label": "Smoking Status",
+        "help": "Whether the patient currently smokes.",
+        "options": [
+          "No",
+          "Yes"
+        ]
+      },
+      {
+        "name": "diabetes",
+        "label": "Diabetes",
+        "help": "Whether the patient has a recorded diabetes diagnosis.",
+        "options": [
+          "No",
+          "Yes"
+        ]
+      },
+      {
+        "name": "family_history",
+        "label": "Family History",
+        "help": "Whether a first-degree relative has a history of heart disease.",
+        "options": [
+          "No",
+          "Yes"
+        ]
+      }
+    ]
+  },
+  "reference_ranges": {
+    "age": {
+      "min": 30.0,
+      "max": 79.0,
+      "mean": 54.86,
+      "std": 14.32
+    },
+    "blood_pressure": {
+      "min": 90.0,
+      "max": 179.0,
+      "mean": 132.87,
+      "std": 26.42
+    },
+    "cholesterol": {
+      "min": 150.0,
+      "max": 299.0,
+      "mean": 221.5,
+      "std": 43.86
+    },
+    "bmi": {
+      "min": 18.1,
+      "max": 40.0,
+      "mean": 29.02,
+      "std": 6.4
+    },
+    "physical_activity": {
+      "min": 0.0,
+      "max": 4.0,
+      "mean": 2.05,
+      "std": 1.42
+    },
+    "stress_level": {
+      "min": 1.0,
+      "max": 9.0,
+      "mean": 4.88,
+      "std": 2.6
+    }
+  }
+}

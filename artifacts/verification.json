@@ -1,0 +1,28 @@
+{
+  "tolerance": 1e-08,
+  "rows": 500,
+  "models": {
+    "logistic_regression": {
+      "max_abs_probability_diff": 4.988787161153141e-13,
+      "label_mismatches": 0,
+      "passed": true
+    },
+    "decision_tree": {
+      "max_abs_probability_diff": 0.0,
+      "label_mismatches": 0,
+      "passed": true
+    },
+    "random_forest": {
+      "max_abs_probability_diff": 5.033196082138147e-13,
+      "label_mismatches": 0,
+      "passed": true
+    },
+    "svm": {
+      "max_abs_probability_diff": 4.994893387788579e-13,
+      "label_mismatches": 0,
+      "passed": true
+    }
+  },
+  "passed": true,
+  "checked_at": "2026-11-19T01:56:57+00:00"
+}

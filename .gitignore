@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Streamlit secrets (never commit credentials)
+.streamlit/secrets.toml
+
+# Vercel
+.vercel/
+
+# Node (only used for local parity/UI verification)
+node_modules/
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+.vercel
+.env*

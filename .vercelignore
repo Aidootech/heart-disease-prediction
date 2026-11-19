@@ -1,0 +1,19 @@
+# Keep the Vercel bundle to the static site + the Node function only.
+# The Python training code, notebooks, raw data and screenshots are not
+# needed at runtime, and excluding them prevents Vercel from detecting a
+# Python project and attempting a heavy function build.
+artifacts/
+heart_ml/
+views/
+scripts/
+screenshots/
+app.py
+train_models.py
+*.py
+*.cjs
+hospital_synthetic_dataset.xlsx
+requirements.txt
+README.md
+.gitignore
+__pycache__/
+.streamlit/

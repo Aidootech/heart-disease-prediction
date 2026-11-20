@@ -11,9 +11,10 @@ The project ships **two front ends that share one set of verified model artifact
 | **Streamlit app** (academic edition) | Python · Streamlit · scikit-learn · Joblib | Local / any Python host |
 | **Vercel web edition** | Static HTML/CSS/JS + a Node.js serverless function | Vercel (no Python at runtime) |
 
-Both editions present the same six pages — Dashboard, Dataset Overview, Model
-Training, Model Evaluation, Heart Disease Prediction and About the Project — and
-produce identical predictions.
+Both editions share the same verified artifacts and the same six-section
+workspace — **Dashboard, Predict, Models, Dataset, History and Profile** — and
+produce identical predictions. The web edition adds a local account layer with a
+per-user prediction history.
 
 > **This is an academic prototype, not a medical device.** It is trained on a
 > 500-record *synthetic* dataset whose feature–target signal is close to chance.
@@ -28,13 +29,53 @@ produce identical predictions.
 
 ### Screenshots
 
-| Dashboard | Model evaluation |
+| Sign in / create account | Dashboard |
 | --- | --- |
-| ![Dashboard](screenshots/dashboard.png) | ![Model evaluation](screenshots/evaluation.png) |
+| ![Authentication](screenshots/auth.png) | ![Dashboard](screenshots/dashboard.png) |
 
-| Prediction result | Mobile layout |
+| Prediction result | Models |
 | --- | --- |
-| ![Prediction result](screenshots/prediction-result.png) | ![Mobile dashboard](screenshots/mobile-dashboard.png) |
+| ![Prediction result](screenshots/predict-result.png) | ![Models](screenshots/models.png) |
+
+| Dataset | History |
+| --- | --- |
+| ![Dataset](screenshots/dataset.png) | ![History](screenshots/history.png) |
+
+| Profile | Mobile dashboard |
+| --- | --- |
+| ![Profile](screenshots/profile.png) | ![Mobile dashboard](screenshots/dashboard-mobile.png) |
+
+---
+
+## Web workspace
+
+The web edition opens on a sign-in screen. Accounts are **client-side only**:
+credentials and prediction history are kept in the browser's `localStorage`.
+Passwords are stored as SHA-256 digests (with a deterministic fallback when
+`crypto.subtle` is unavailable), and nothing is sent to a server.
+
+- **Sign in** with an existing local account.
+- **Create account** with a name, email and password (8+ characters).
+- **Explore the demo** with the seeded account `demo@cardiocare.app` /
+  `demo1234`.
+
+Every prediction is saved per user under `cc_history_v2:<email>` (capped at 60
+records). The History section supports search and risk filtering, per-row
+**CSV/JSON download**, whole-history **CSV/JSON export**, single-row deletion and
+clear-all. The Profile section lets a signed-in user update their name, role and
+hospital, download their account data, clear history, sign out or delete the
+account. Export and download actions are green; destructive actions are red.
+
+The signed-in shell contains exactly six navigation items:
+
+| Section | Contents |
+| --- | --- |
+| **Dashboard** | Image slideshow, cohort KPIs, heart overview, average vitals, cross-validated F1 by model, selected model, recent predictions, target distribution |
+| **Predict** | Ten-field patient form, model picker, serverless scoring, probability meter, drivers, clinical indicators, cross-model comparison, result download |
+| **Models** | Model KPIs, comparison table, ROC curves, confusion matrix, classification report, algorithm cards, training timeline and run record |
+| **Dataset** | Record preview, target distribution, disease rate by sex, numeric summaries, IQR bars, correlation heatmap, data-quality notes |
+| **History** | Per-user records with search, risk filter, count badge, CSV/JSON export, row download and deletion |
+| **Profile** | Editable clinician details, account statistics, data download, sign out, clear history and account deletion |
 
 ---
 
@@ -121,9 +162,13 @@ Heart-disease-prediction/
 ├── views/                    # Six Streamlit pages + shared design system
 ├── artifacts/                # Joblib pipelines, metadata, verification
 ├── public/                   # Vercel static front end + published data
-│   ├── index.html
-│   ├── assets/{styles.css,app.js}
+│   ├── index.html            # Auth screen + six-section app shell
+│   ├── assets/
+│   │   ├── styles.css        # Blue/white design system
+│   │   ├── app.js            # Auth, routing, charts, history, export
+│   │   └── images/           # Login visual, slideshow slides, heart graphic
 │   └── data/{dataset,models,training}.json
+├── screenshots/              # Refreshed UI captures
 ├── api/
 │   ├── predict.js            # Serverless prediction endpoint
 │   ├── _engine.js            # Dependency-free arithmetic replay + validation
